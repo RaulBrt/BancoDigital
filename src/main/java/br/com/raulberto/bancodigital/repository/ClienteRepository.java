@@ -21,7 +21,7 @@ public class ClienteRepository {
 		throw new Exception("Cliente nao encontrado");
 	}
 	
-	public int getClienteIndexByCPF(String cpf) throws Exception{
+	public int getClienteIndexByCPF(String cpf){
 		int i = 0;
 		for(Cliente cliente : clientes) {
 			if(cliente.getCpf().equals(cpf)) {
@@ -29,7 +29,7 @@ public class ClienteRepository {
 			}
 			i++;
 		}
-		throw new Exception("Cliente nao encontrado");
+		return -1;
 	}
 	
 	
@@ -38,12 +38,12 @@ public class ClienteRepository {
 	}
 	
 	public void atualizarCliente(String cpf, Cliente cliente) throws Exception{
-		try {
-			int buff = this.getClienteIndexByCPF(cpf);
+		int buff = this.getClienteIndexByCPF(cpf);
+		if(buff >= 0) {
 			this.clientes.set(buff, cliente);
-			
-		}catch(Exception e) {
-			throw e;
+		}
+		else {
+			throw new Exception("Cliente nao encontrado");
 		}
 	}
 	

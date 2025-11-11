@@ -1,8 +1,11 @@
 package br.com.raulberto.bancodigital.entity;
 
+
 public class Cliente {
+
+	private String cpf;
 	
-	private String cpf, nome, endereco, dataDeNascimento;
+	private String nome, endereco, dataDeNascimento;
 	private int tipo;
 	
 	public Cliente(String cpf, String nome, String endereco, String dataDeNascimento, int tipo) {
@@ -13,14 +16,6 @@ public class Cliente {
 		this.tipo = tipo;
 	}
 		
-	/*public Cliente(String cpf, String nome, String endereco, String dataDeNascimento) {
-		this.cpf = cpf;
-		this.nome = nome;
-		this.endereco = endereco;
-		this.dataDeNascimento = dataDeNascimento;
-		this.tipo = 1;
-	}*/
-	
 	//Getters e Setters
 	
 	public String getCpf() {

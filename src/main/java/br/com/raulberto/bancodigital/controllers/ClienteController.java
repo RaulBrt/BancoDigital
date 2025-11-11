@@ -1,6 +1,7 @@
 package br.com.raulberto.bancodigital.controllers;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,16 @@ public class ClienteController {
 	
 	private ClienteService clienteService = new ClienteService();
 	
+	
+	
 	@PostMapping("/clientes")
-	public void adicionarCliente(@RequestBody Cliente cliente) {
-		
-		clienteService.adicionarCliente(cliente);
+	public void adicionarCliente(@RequestBody Cliente cliente) throws Exception{
+		try {
+			clienteService.adicionarCliente(cliente);	
+		}
+		catch(Exception e){
+			throw e;
+		}
 	}
 	
 	@GetMapping("/clientes")
