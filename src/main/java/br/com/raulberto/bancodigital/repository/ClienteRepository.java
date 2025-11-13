@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import br.com.raulberto.bancodigital.entity.Cliente;
 
-public class ClienteRepository {
+public final class ClienteRepository {
 		
-	private ArrayList<Cliente> clientes = new ArrayList<>();;
+	private static ArrayList<Cliente> clientes = new ArrayList<>();;
 
-	public ArrayList<Cliente> getClientes() {
+	public static ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
 	
-	public Cliente getClienteByCPF(String cpf) throws Exception{
+	public static Cliente getClienteByCPF(String cpf) throws Exception{
 		for(Cliente cliente : clientes) {
 			if(cliente.getCpf().equals(cpf)) {
 				return cliente;
@@ -21,7 +21,7 @@ public class ClienteRepository {
 		throw new Exception("Cliente nao encontrado");
 	}
 	
-	public int getClienteIndexByCPF(String cpf){
+	public static int getClienteIndexByCPF(String cpf){
 		int i = 0;
 		for(Cliente cliente : clientes) {
 			if(cliente.getCpf().equals(cpf)) {
@@ -33,22 +33,22 @@ public class ClienteRepository {
 	}
 	
 	
-	public void adicionarCliente(Cliente cliente) {
+	public static void adicionarCliente(Cliente cliente) {
 		clientes.add(cliente);
 	}
 	
-	public void atualizarCliente(String cpf, Cliente cliente) throws Exception{
-		int buff = this.getClienteIndexByCPF(cpf);
+	public static void atualizarCliente(String cpf, Cliente cliente) throws Exception{
+		int buff = getClienteIndexByCPF(cpf);
 		if(buff >= 0) {
-			this.clientes.set(buff, cliente);
+			clientes.set(buff, cliente);
 		}
 		else {
 			throw new Exception("Cliente nao encontrado");
 		}
 	}
 	
-	public void deletarCliente(String cpf){
-		clientes.remove(this.getClienteIndexByCPF(cpf));
+	public static void deletarCliente(String cpf){
+		clientes.remove(getClienteIndexByCPF(cpf));
 	}
 	
 

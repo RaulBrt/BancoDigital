@@ -8,16 +8,16 @@ import br.com.raulberto.bancodigital.repository.ClienteRepository;
 
 public class ClienteService {
 	
-	private ClienteRepository clienteRepository = new ClienteRepository();
+	//private ClienteRepository clienteRepository = new ClienteRepository();
 	
 	public void adicionarCliente(Cliente cliente) throws Exception{
-		int  clienteExiste= clienteRepository.getClienteIndexByCPF(cliente.getCpf());
+		int  clienteExiste= ClienteRepository.getClienteIndexByCPF(cliente.getCpf());
 		boolean isCpfValido = this.validarCpf(cliente.getCpf());
 		boolean isNomeValido = this.validarNome(cliente.getNome());
 		boolean isDataNascimentoValida = this.validarDataNascimento(cliente.getDataDeNascimento());
 		
 		if(clienteExiste < 0 && isCpfValido && isNomeValido && isDataNascimentoValida){
-			clienteRepository.adicionarCliente(cliente);
+			ClienteRepository.adicionarCliente(cliente);
 		}
 		else {
 			if(!isCpfValido) {
@@ -36,12 +36,12 @@ public class ClienteService {
 	}
 	
 	public ArrayList<Cliente> getClientes() {
-		return clienteRepository.getClientes();
+		return ClienteRepository.getClientes();
 	}
 	
 	public Cliente getClienteByCPF(String cpf) throws Exception{
 		try {
-			return clienteRepository.getClienteByCPF(cpf);
+			return ClienteRepository.getClienteByCPF(cpf);
 		}catch(Exception e) {
 			throw e;
 		}
@@ -49,14 +49,24 @@ public class ClienteService {
 	 
 	public void atualizarCliente(String cpf, Cliente cliente) throws Exception{
 		try {
-			clienteRepository.atualizarCliente(cpf, cliente);
+			if(ClienteRepository.getClienteIndexByCPF(cpf) >= 0) {
+				if(this.validarCliente(cliente)) {
+					ClienteRepository.atualizarCliente(cpf, cliente);
+				}
+				else {
+					throw new Exception("Os novos dados sao invalidos");
+				}
+			}
+			else {
+				throw new Exception("Cliente Não Encontrado");
+			}
 		}catch(Exception e) {
 			throw e;
 		}
 	}
 	
 	public void deletarCliente(String cpf){
-		clienteRepository.deletarCliente(cpf);
+		ClienteRepository.deletarCliente(cpf);
 	}
 	
 	
@@ -126,6 +136,16 @@ public class ClienteService {
 					(data.length() == 10);
 		}catch(Exception e){
 			return false;
+		}
+	}
+	
+	public boolean validarCliente(Cliente cliente) throws Exception{
+		try {
+			return (this.validarCpf(cliente.getCpf()) && 
+				this.validarNome(cliente.getNome()) &&
+				this.validarDataNascimento(cliente.getDataDeNascimento()));
+		}catch(Exception e) {
+			throw e;
 		}
 	}
 

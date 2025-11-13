@@ -1,7 +1,6 @@
 package br.com.raulberto.bancodigital.controllers;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
