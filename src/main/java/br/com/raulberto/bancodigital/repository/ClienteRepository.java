@@ -47,13 +47,8 @@ public class ClienteRepository {
 		}
 	}
 	
-	public void deletarCliente(String cpf) throws Exception{
-		try {
-			clientes.remove(this.getClienteIndexByCPF(cpf));
-			
-		}catch(Exception e) {
-			throw e;
-		}
+	public void deletarCliente(String cpf){
+		clientes.remove(this.getClienteIndexByCPF(cpf));
 	}
 	
 

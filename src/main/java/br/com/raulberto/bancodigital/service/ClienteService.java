@@ -11,14 +11,23 @@ public class ClienteService {
 	private ClienteRepository clienteRepository = new ClienteRepository();
 	
 	public void adicionarCliente(Cliente cliente) throws Exception{
-		int buffIndex = clienteRepository.getClienteIndexByCPF(cliente.getCpf());
-		boolean boolBuff = this.validarCpf(cliente.getCpf());
-		if(boolBuff && buffIndex < 0){
+		int  clienteExiste= clienteRepository.getClienteIndexByCPF(cliente.getCpf());
+		boolean isCpfValido = this.validarCpf(cliente.getCpf());
+		boolean isNomeValido = this.validarNome(cliente.getNome());
+		boolean isDataNascimentoValida = this.validarDataNascimento(cliente.getDataDeNascimento());
+		
+		if(clienteExiste < 0 && isCpfValido && isNomeValido && isDataNascimentoValida){
 			clienteRepository.adicionarCliente(cliente);
 		}
 		else {
-			if(!boolBuff) {
+			if(!isCpfValido) {
 				throw new Exception("Cpf Invalido");
+			}
+			else if(!isNomeValido) {
+				throw new Exception("Nome Invalido");
+			}
+			else if(!isDataNascimentoValida) {
+				throw new Exception("Data de Nascimento Invalida");
 			}
 			else {
 				throw new Exception("Ja existe um cliente com este CPF");
@@ -46,12 +55,8 @@ public class ClienteService {
 		}
 	}
 	
-	public void deletarCliente(String cpf) throws Exception{
-		try {
-			clienteRepository.deletarCliente(cpf);
-		}catch(Exception e) {
-			throw e;
-		}
+	public void deletarCliente(String cpf){
+		clienteRepository.deletarCliente(cpf);
 	}
 	
 	
@@ -100,6 +105,26 @@ public class ClienteService {
 			return true;
 		}
 		else {
+			return false;
+		}
+	}
+	
+	private boolean validarNome(String nome) {
+		String nomeRegex = "^[\\p{L} .'-]+$";
+		return (nome.length() > 1 && nome.length() <= 100 && Pattern.matches(nomeRegex, nome));
+	}
+	
+	public boolean validarDataNascimento(String data) throws Exception{
+		int date[] = new int[3];
+		try {
+			date[0] = Integer.parseInt(data.substring(0, 2));
+			date[1] = Integer.parseInt(data.substring(3, 5));
+			date[2] = Integer.parseInt(data.substring(6, 10));
+			return (date[0] > 0 && date[0] <= 31) && 
+					(date[1] > 0 && date[1] <= 12) &&
+					(date[2] >= 0 && date[2] <= 9999) &&
+					(data.length() == 10);
+		}catch(Exception e){
 			return false;
 		}
 	}

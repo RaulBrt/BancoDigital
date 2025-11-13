@@ -1,36 +1,21 @@
 package br.com.raulberto.bancodigital.controllers;
 
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.raulberto.bancodigital.entity.Cartao;
-import br.com.raulberto.bancodigital.entity.CartaoCredito;
-import br.com.raulberto.bancodigital.entity.CartaoDebito;
-import br.com.raulberto.bancodigital.repository.CartaoRepository;
+import br.com.raulberto.bancodigital.entity.Conta;
+import br.com.raulberto.bancodigital.service.ContaService;
 
-public class ContaController {
+public class ContaController {	
+	private ContaService contaService = new ContaService();
 	
-	ArrayList<Cartao> meusCartoes;
-	
-	
-	public ContaController() {
-		meusCartoes = new ArrayList<>();
+	@PostMapping("/contass")
+	public void adicionarConta(@RequestBody Conta conta) throws Exception{
+		try {
+			contaService.adicionarConta(conta);	
+		}
+		catch(Exception e){
+			throw e;
+		}
 	}
-
-	public ArrayList<Cartao> getMeusCartoes() {
-		return meusCartoes;
-	}
-	
-	public void adicionarCartaoDebito(int contaId, int id, int senha) {
-		CartaoDebito buff = new CartaoDebito(contaId, id, senha);
-		CartaoRepository.adicionarCartao(buff);
-		meusCartoes.add(buff);
-	}
-	
-	public void adicionarCartaoCredito(int contaId, int id, int senha, int limite) {
-		CartaoCredito buff = new CartaoCredito(contaId, id, senha, limite);
-		CartaoRepository.adicionarCartao(buff);
-		meusCartoes.add(buff);
-	}
-	
-
 }

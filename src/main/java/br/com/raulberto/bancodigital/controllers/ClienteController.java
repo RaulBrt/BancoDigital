@@ -55,12 +55,8 @@ public class ClienteController {
 	}
 	
 	@DeleteMapping("/clientes/{cpf}")
-	public void deletarCliente(@PathVariable String cpf) throws Exception{
-		try {
-			clienteService.deletarCliente(cpf);
-		}catch(Exception e) {
-			throw e;
-		}
+	public void deletarCliente(@PathVariable String cpf){	
+		clienteService.deletarCliente(cpf);
 	}
 	
 

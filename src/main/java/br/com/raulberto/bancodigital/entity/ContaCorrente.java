@@ -1,18 +1,12 @@
 package br.com.raulberto.bancodigital.entity;
 
 public class ContaCorrente extends Conta{
-
-	private double manutencao;
 	
-	public ContaCorrente(String cpfDono, int id) {
+	double manutencao;
+	
+	public ContaCorrente(String cpfDono, int id, double manutencao) {
 		super(cpfDono, id);
+		this.manutencao = manutencao;
 	}
-
-	//Controller
-	public void Manutencao() {
-		this.setSaldo(this.getSaldo());
-	}
-	
-	
 
 }

@@ -2,13 +2,10 @@ package br.com.raulberto.bancodigital.entity;
 
 public class ContaPoupanca extends Conta{
 
-	public ContaPoupanca(String cpfDono, int id) {
-		super(cpfDono, id);
-	}
+	double rendimento;
 	
-	//Controller
-	public void Manutencao(double manutencao) {
-		this.setSaldo(this.getSaldo()*(1+manutencao));
+	public ContaPoupanca(String cpfDono, int id, double rendimento) {
+		super(cpfDono, id);
+		this.rendimento = rendimento;
 	}
-
 }
