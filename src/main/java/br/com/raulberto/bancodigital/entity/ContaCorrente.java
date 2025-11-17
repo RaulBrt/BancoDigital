@@ -28,5 +28,9 @@ public class ContaCorrente extends Conta{
 			return 12;
 		}
 	}
+	
+	public void doManutencao() {
+		this.saldo -= this.manutencao;
+	}
 
 }

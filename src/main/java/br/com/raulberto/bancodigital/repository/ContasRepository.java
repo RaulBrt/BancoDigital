@@ -80,5 +80,41 @@ public final class ContasRepository {
 		
 	}
 	
+	public static double consultaSaldo(int id) throws Exception{
+		try {
+			return contas.get(getContaIndexById(id)).getSaldo();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void manutencao(int id) throws Exception{
+		try {
+			
+			if(contas.get(getContaIndexById(id)) instanceof ContaCorrente) {
+				((ContaCorrente) contas.get(getContaIndexById(id))).doManutencao();
+			}
+			else {
+				throw new Exception("Conta selecionada nao e conta corrente: " + id);
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void rendimento(int id) throws Exception{
+		try {
+			
+			if(contas.get(getContaIndexById(id)) instanceof ContaPoupanca) {
+				((ContaPoupanca) contas.get(getContaIndexById(id))).doRendimento();
+			}
+			else {
+				throw new Exception("Conta selecionada nao e conta poupanca: " + id);
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 
 }

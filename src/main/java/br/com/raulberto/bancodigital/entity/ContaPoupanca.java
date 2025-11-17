@@ -18,11 +18,19 @@ public class ContaPoupanca extends Conta{
 	private double checkRendimento(String cpf) {
 		try {
 			int tipo = ClienteRepository.getClienteByCPF(cpf).getTipo();
-			return (tipo == 3 ? 0.9 : tipo == 2 ? 0.7 : 0.5);
+			return (tipo == 3 ? 0.009 : tipo == 2 ? 0.007 : 0.005);
 		}
 		catch(Exception e) {
 			return 0.5;
 		}
+	}
+	
+	public void doRendimento() {
+		double saldoBuff = this.saldo *= (1 + this.rendimento);
+		String buff = String.format("%.2f", saldoBuff);
+		buff = buff.replace(',', '.');
+		this.saldo = Double.parseDouble(buff);
+		
 	}
 	
 }

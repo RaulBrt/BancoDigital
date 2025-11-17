@@ -3,7 +3,7 @@ package br.com.raulberto.bancodigital.entity;
 public class Conta {
 	
 	private String cpfDono;
-	private double saldo;
+	protected double saldo;
 	private int id;
 	
 	public Conta(int id, String cpfDono){

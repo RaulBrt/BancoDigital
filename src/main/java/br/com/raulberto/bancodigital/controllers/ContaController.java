@@ -3,6 +3,7 @@ package br.com.raulberto.bancodigital.controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -70,5 +71,32 @@ public class ContaController {
 			throw e;
 		}
 		 
+	}
+	
+	@GetMapping("/contas/{id}/saldo")
+	public double consultaSaldo(@PathVariable int id) throws Exception{
+		try {
+			return contaService.consultaSaldo(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	@PutMapping("/contas/{id}/manutencao")
+	public void manutencao(@PathVariable int id) throws Exception{
+		try {
+			contaService.manutencao(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	@PutMapping("/contas/{id}/rendimentos")
+	public void rendimento(@PathVariable int id) throws Exception{
+		try {
+			contaService.rendimento(id);
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 }

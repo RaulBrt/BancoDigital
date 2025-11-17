@@ -92,4 +92,28 @@ public class ContaService {
 		
 	}
 	
+	public double consultaSaldo(int id) throws Exception{
+		try {
+			return ContasRepository.consultaSaldo(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void manutencao(int id) throws Exception{
+		try {
+			ContasRepository.manutencao(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void rendimento(int id) throws Exception{
+		try {
+			ContasRepository.rendimento(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 }
