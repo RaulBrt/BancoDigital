@@ -6,6 +6,13 @@ public class Cliente {
 	private String cpf;
 	
 	private String nome, endereco, dataDeNascimento;
+	
+	/*Tipo de Clientes
+	 * 
+	 * 1 - Comum
+	 * 2 - Super
+	 * 3 - Premium
+	 * */
 	private int tipo;
 	
 	public Cliente(String cpf, String nome, String endereco, String dataDeNascimento, int tipo) {

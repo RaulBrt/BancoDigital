@@ -3,13 +3,11 @@ package br.com.raulberto.bancodigital.repository;
 import java.util.ArrayList;
 
 import br.com.raulberto.bancodigital.entity.Conta;
+import br.com.raulberto.bancodigital.entity.ContaCorrente;
+import br.com.raulberto.bancodigital.entity.ContaPoupanca;
 
 public final class ContasRepository {
 	private static ArrayList<Conta> contas = new ArrayList<>();
-
-	/*public ContasRepository() {
-		contas = new ArrayList<>();
-	}*/
 
 	public static ArrayList<Conta> getContas() {
 		return contas;
@@ -26,11 +24,61 @@ public final class ContasRepository {
 		return -1;
 	}
 	
-	public static void adicionarConta(Conta conta) {
+	public static Conta getContaById(int id) throws Exception{
+		for(Conta conta : contas) {
+			if(conta.getId() == id) {
+				return conta;
+			}
+		}
+		throw new Exception("Conta não encontrada: " + id);
+	}
+	
+	public static void adicionarContaCorrente(ContaCorrente conta) {
 		contas.add(conta);
 	}
 	
-
+	public static void adicionarContaPoupanca(ContaPoupanca conta) {
+		contas.add(conta);
+	}
+	
+	public static void depositar(int id, double valor) throws Exception{
+		try {
+			double buff = contas.get(getContaIndexById(id)).getSaldo() + valor;
+			contas.get(getContaIndexById(id)).setSaldo(buff);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void sacar(int id, double valor) throws Exception{
+		try {
+			double buff = contas.get(getContaIndexById(id)).getSaldo() - valor;
+			if(buff >= 0) {
+				contas.get(getContaIndexById(id)).setSaldo(buff);
+			}
+			else {
+				throw new Exception("Saldo insuficiente: " + contas.get(getContaIndexById(id)).getSaldo());
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void transferencia(int id, int idTgt, double valor) throws Exception{
+		try{
+			int indexContaOrigem = getContaIndexById(id);
+			if(contas.get(indexContaOrigem).getSaldo() - valor >= 0) {
+				sacar(id,valor);
+				depositar(idTgt,valor);
+			}
+			else {
+				throw new Exception ("Saldo insuficiente: " + contas.get(getContaIndexById(id)).getSaldo());
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+		
+	}
 	
 
 }

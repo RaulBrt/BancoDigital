@@ -6,7 +6,7 @@ public class Conta {
 	private double saldo;
 	private int id;
 	
-	public Conta(String cpfDono, int id) {
+	public Conta(int id, String cpfDono){
 		this.cpfDono = cpfDono;
 		this.saldo = 0;
 		this.id = id;
