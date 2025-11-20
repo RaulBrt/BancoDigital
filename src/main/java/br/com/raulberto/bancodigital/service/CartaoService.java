@@ -73,6 +73,60 @@ public class CartaoService {
 		}
 	}
 	
+	
+	public void setLimite(int id,double valor) throws Exception{
+		try {
+			if(valor >= 0 && CartaoRepository.getCartaoById(id) instanceof CartaoCredito) {
+				CartaoRepository.setLimite(id,valor);
+			}
+			else if(valor < 0) {
+				throw new Exception("Limite deve ser maior que 0");
+			}
+			else {
+				throw new Exception("Cartao nao e cartao de credito");
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void setStatus(int id) throws Exception{
+		try {
+			CartaoRepository.setStatus(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void changeSenha(int id, int senha, int newSenha) throws Exception{
+		try {
+			if(senha == CartaoRepository.getCartaoById(id).getSenha()) {
+				CartaoRepository.changeSenha(id,newSenha);
+			}
+			else {
+				throw new Exception("Senha incorreta");
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void setLimiteDiario(int id, int valor) throws Exception{
+		try {
+			if(CartaoRepository.getCartaoById(id) instanceof CartaoDebito && valor >= 0) {
+				CartaoRepository.setLimiteDiario(id,valor);
+			}
+			else if(valor < 0){
+				throw new Exception("O novo limite deve ser maior ou igual a 0");
+			}
+			else {
+				throw new Exception("Cartao nao e cartao de debito");
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 	private boolean validarCartao(Cartao cartao) throws Exception{
 		int contaExiste = ContasRepository.getContaIndexById(cartao.getContaId());
 		int cartaoExiste = CartaoRepository.getCartaoIndexById(cartao.getId());

@@ -44,17 +44,22 @@ public final class CartaoRepository {
 	
 	public static void pagamentoDebito(int index, double valor) throws Exception{
 		try {
-			double saldo = ContasRepository.getContaById(cartoes.get(index).getContaId()).getSaldo();
-			if(((CartaoDebito) cartoes.get(index)).isTransacaoEnabled() && valor <= saldo) {
-				ContasRepository.getContaById(cartoes.get(index).getContaId()).setSaldo(saldo - valor);
-				((CartaoDebito) cartoes.get(index)).setNumTransacoes(((CartaoDebito) cartoes.get(index)).getNumTransacoes() + 1);
-				
-			}
-			else if(valor > saldo) {
-				throw new Exception("Saldo Insuficiente");
+			if(cartoes.get(index).isAtivo()) {
+				double saldo = ContasRepository.getContaById(cartoes.get(index).getContaId()).getSaldo();
+				if(((CartaoDebito) cartoes.get(index)).isTransacaoEnabled() && valor <= saldo) {
+					ContasRepository.getContaById(cartoes.get(index).getContaId()).setSaldo(saldo - valor);
+					((CartaoDebito) cartoes.get(index)).setNumTransacoes(((CartaoDebito) cartoes.get(index)).getNumTransacoes() + 1);
+					
+				}
+				else if(valor > saldo) {
+					throw new Exception("Saldo Insuficiente");
+				}
+				else {
+					throw new Exception("Limite de transacoes diario atingido");
+				}
 			}
 			else {
-				throw new Exception("Limite de transacoes diario atingido");
+				throw new Exception("Cartao desativado");
 			}
 		}catch(Exception e) {
 			throw e;
@@ -63,15 +68,51 @@ public final class CartaoRepository {
 	
 	public static void pagamentoCredito(int index, double valor) throws Exception{
 		try {
-			double saldo = ContasRepository.getContaById(cartoes.get(index).getContaId()).getSaldo();
-			double limite = ((CartaoCredito) cartoes.get(index)).getLimite();
-		
-			if(saldo - valor >= (limite * -1)) {
-				ContasRepository.getContaById(cartoes.get(index).getContaId()).setSaldo(saldo - valor);
+			if(cartoes.get(index).isAtivo()) {
+				double saldo = ContasRepository.getContaById(cartoes.get(index).getContaId()).getSaldo();
+				double limite = ((CartaoCredito) cartoes.get(index)).getLimite();
+			
+				if(saldo - valor >= (limite * -1)) {
+					ContasRepository.getContaById(cartoes.get(index).getContaId()).setSaldo(saldo - valor);
+				}
+				else{
+					throw new Exception("Limite de credito atingido");
+				}
+			}else {
+				throw new Exception("Cartao desativado");
 			}
-			else{
-				throw new Exception("Limite de credito atingido");
-			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void setLimite(int id, double valor) throws Exception {
+		try {
+			((CartaoCredito)cartoes.get(getCartaoIndexById(id))).setLimite(valor);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void setStatus(int id) throws Exception{
+		try {
+			cartoes.get(getCartaoIndexById(id)).setAtivo(!(cartoes.get(getCartaoIndexById(id)).isAtivo()));
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void changeSenha(int id, int senha) throws Exception{
+		try {
+			cartoes.get(getCartaoIndexById(id)).setSenha(senha);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void setLimiteDiario(int id, int valor) throws Exception{
+		try {
+			((CartaoDebito)cartoes.get(getCartaoIndexById(id))).setLimiteTransacoes(valor);
 		}catch(Exception e) {
 			throw e;
 		}

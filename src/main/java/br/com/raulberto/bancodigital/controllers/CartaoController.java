@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import br.com.raulberto.bancodigital.entity.Cartao;
 import br.com.raulberto.bancodigital.entity.CartaoCredito;
@@ -59,4 +62,41 @@ public class CartaoController {
 		}
 	}
 	
+	@PutMapping("/cartoes/{id}/limite")
+	public void setLimite(@PathVariable int id, @RequestBody double valor) throws Exception{
+		try {
+			cartaoService.setLimite(id,valor);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	@PutMapping("/cartoes/{id}/status")
+	public void setStatus(@PathVariable int id) throws Exception{
+		try {
+			cartaoService.setStatus(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	@PutMapping("/cartoes/{id}/senha")
+	public void changeSenha(@PathVariable int id, @RequestBody ObjectNode json) throws Exception{
+		try {
+			int senha = json.get("senha").asInt();
+			int newSenha = json.get("newSenha").asInt();
+			cartaoService.changeSenha(id,senha,newSenha);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	@PutMapping("/cartoes/{id}/limite-diario")
+	public void setLimiteDiario(@PathVariable int id, @RequestBody int valor) throws Exception{
+		try {
+			cartaoService.setLimiteDiario(id,valor);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 }
