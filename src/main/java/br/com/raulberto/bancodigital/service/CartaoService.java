@@ -42,6 +42,25 @@ public class CartaoService {
 		}
 	}
 	
+	public void pagamento(int id, double valor) throws Exception{
+		try {
+			int buffIndex = CartaoRepository.getCartaoIndexById(id);
+			if(buffIndex < 0){
+				throw new Exception("Cartao nao existe");
+			}
+			else {
+				if(CartaoRepository.getCartoes().get(buffIndex) instanceof CartaoDebito) {
+					CartaoRepository.pagamentoDebito(buffIndex,valor);
+				}
+				else if(CartaoRepository.getCartoes().get(buffIndex) instanceof CartaoCredito) {
+					CartaoRepository.pagamentoCredito(buffIndex,valor);
+				}
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 	public ArrayList<Cartao> getCartoes(){
 		return CartaoRepository.getCartoes();
 	}

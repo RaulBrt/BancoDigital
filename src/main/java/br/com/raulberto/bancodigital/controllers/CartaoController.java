@@ -36,6 +36,15 @@ public class CartaoController {
 		}
 	}
 	
+	@PostMapping("/cartoes/{id}/pagamento")
+	public void pagamento(@PathVariable int id, @RequestBody double valor) throws Exception{
+		try {
+			cartaoService.pagamento(id,valor);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 	@GetMapping("/cartoes")
 	public ArrayList<Cartao> getCartoes() throws Exception{
 		return cartaoService.getCartoes();
