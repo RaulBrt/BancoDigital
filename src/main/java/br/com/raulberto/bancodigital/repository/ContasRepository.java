@@ -43,8 +43,13 @@ public final class ContasRepository {
 	
 	public static void depositar(int id, double valor) throws Exception{
 		try {
-			double buff = contas.get(getContaIndexById(id)).getSaldo() + valor;
-			contas.get(getContaIndexById(id)).setSaldo(buff);
+			if(valor > 0) {
+				double buff = contas.get(getContaIndexById(id)).getSaldo() + valor;
+				contas.get(getContaIndexById(id)).setSaldo(buff);
+			}
+			else {
+				throw new Exception("Valor deve ser maior que 0: " + valor);
+			}
 		}catch(Exception e) {
 			throw e;
 		}
@@ -52,12 +57,17 @@ public final class ContasRepository {
 	
 	public static void sacar(int id, double valor) throws Exception{
 		try {
-			double buff = contas.get(getContaIndexById(id)).getSaldo() - valor;
-			if(buff >= 0) {
-				contas.get(getContaIndexById(id)).setSaldo(buff);
+			if(valor > 0) {
+				double buff = contas.get(getContaIndexById(id)).getSaldo() - valor;
+				if(buff >= 0) {
+					contas.get(getContaIndexById(id)).setSaldo(buff);
+				}
+				else {
+					throw new Exception("Saldo insuficiente: " + contas.get(getContaIndexById(id)).getSaldo());
+				}
 			}
 			else {
-				throw new Exception("Saldo insuficiente: " + contas.get(getContaIndexById(id)).getSaldo());
+				throw new Exception("Valor deve ser maior que 0: " + valor);
 			}
 		}catch(Exception e) {
 			throw e;
@@ -113,6 +123,22 @@ public final class ContasRepository {
 			}
 		}catch(Exception e) {
 			throw e;
+		}
+	}
+	
+	public static void pix(int id, String cpf, double valor) throws Exception{
+		int idTgt = -1;
+		for(Conta conta : contas) {
+			if(conta.getCpfDono().equals(cpf)) {
+				idTgt = conta.getId();
+				break;
+			}
+		}
+		if(idTgt < 0) {
+			throw new Exception ("Chave pix nao encontrada");
+		}
+		else {
+			transferencia(id,idTgt,valor);
 		}
 	}
 	

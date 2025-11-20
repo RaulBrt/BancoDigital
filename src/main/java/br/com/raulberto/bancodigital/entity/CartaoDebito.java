@@ -2,9 +2,24 @@ package br.com.raulberto.bancodigital.entity;
 
 public class CartaoDebito extends Cartao{
 
-	public CartaoDebito(int contaId, int id, int senha) {
-		super(contaId, id, senha);
-		this.setLimite(0);
+	int limiteTransacoes;
+	
+	public CartaoDebito(int id, int contaId, int senha, int limiteTransacoes) {
+		super(id, contaId, senha);
+		this.limiteTransacoes = limiteTransacoes;
 	}
+
+	public int getLimiteTransacoes() {
+		return limiteTransacoes;
+	}
+
+	public void setLimiteTransacoes(int limiteTransacoes) {
+		this.limiteTransacoes = limiteTransacoes;
+	}
+	
+	public void resetTransacoes() {
+		this.limiteTransacoes = 0;
+	}
+	
 
 }

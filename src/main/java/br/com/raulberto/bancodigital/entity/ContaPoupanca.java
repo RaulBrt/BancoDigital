@@ -21,7 +21,7 @@ public class ContaPoupanca extends Conta{
 			return (tipo == 3 ? 0.009 : tipo == 2 ? 0.007 : 0.005);
 		}
 		catch(Exception e) {
-			return 0.5;
+			return 0.005;
 		}
 	}
 	

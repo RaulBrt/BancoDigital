@@ -99,4 +99,13 @@ public class ContaController {
 			throw e;
 		}
 	}
+	
+	@PostMapping("/contas/{id}/pix")
+	public void pix(@PathVariable int id, @RequestBody ObjectNode json) throws Exception{
+		try {
+			contaService.pix(id,json.get("cpf").asText(),json.get("valor").asDouble());
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 }

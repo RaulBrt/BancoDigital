@@ -116,4 +116,12 @@ public class ContaService {
 		}
 	}
 	
+	public void pix(int id, String cpf, double valor) throws Exception{
+		try {
+			ContasRepository.pix(id,cpf,valor);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 }

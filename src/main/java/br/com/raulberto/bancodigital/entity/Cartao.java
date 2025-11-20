@@ -3,13 +3,12 @@ package br.com.raulberto.bancodigital.entity;
 public class Cartao {
 	
 	int contaId,senha,id;
-	double limite;
 	boolean ativo;
 	
-	public Cartao(int contaId,  int id, int senha) {
-		this.contaId = contaId;
-		this.senha = senha;
+	public Cartao(int id, int contaId, int senha) {
 		this.id = id;
+		this.senha = senha;
+		this.contaId = contaId;
 		this.ativo = true;
 	}
 	
@@ -38,13 +37,5 @@ public class Cartao {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
-	public double getLimite() {
-		return limite;
-	}
-	
-	public void setLimite(double limite) {
-		this.limite = limite;
-	}
-	
+		
 }
