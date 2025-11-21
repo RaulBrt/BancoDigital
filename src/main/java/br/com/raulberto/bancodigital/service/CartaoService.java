@@ -127,6 +127,32 @@ public class CartaoService {
 		}
 	}
 	
+	public double getFatura(int id) throws Exception{
+		try {
+			if(CartaoRepository.getCartaoById(id) instanceof CartaoCredito) {
+				return CartaoRepository.getFatura(id);
+			}
+			else {
+				throw new Exception("Cartao nao e cartao de credito");
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void payFatura(int id) throws Exception{
+		try {
+			if(CartaoRepository.getCartaoById(id) instanceof CartaoCredito) {
+				CartaoRepository.payFatura(id);
+			}
+			else {
+				throw new Exception("Cartao nao e cartao de credito");
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 	private boolean validarCartao(Cartao cartao) throws Exception{
 		int contaExiste = ContasRepository.getContaIndexById(cartao.getContaId());
 		int cartaoExiste = CartaoRepository.getCartaoIndexById(cartao.getId());

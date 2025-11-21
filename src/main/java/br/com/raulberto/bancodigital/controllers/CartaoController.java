@@ -99,4 +99,22 @@ public class CartaoController {
 			throw e;
 		}
 	}
-}
+	
+	@GetMapping("/cartoes/{id}/fatura")
+	public double getFatura(@PathVariable int id) throws Exception{
+		try {
+			return cartaoService.getFatura(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	@PostMapping("/cartoes/{id}/fatura/pagamento")
+	public void payFatura(@PathVariable int id) throws Exception{
+		try {
+			cartaoService.payFatura(id);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+} 

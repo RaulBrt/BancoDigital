@@ -6,13 +6,25 @@ import br.com.raulberto.bancodigital.repository.ContasRepository;
 public class CartaoCredito extends Cartao{
 
 	private double limite;
+	private double fatura;
 	
 	public CartaoCredito(int id, int contaId, int senha) {
 		super(id, contaId, senha);
 		this.limite = this.checkLimite(contaId);
+		this.fatura = 0;
 	}
 	
 	
+	public double getFatura() {
+		return fatura;
+	}
+
+
+	public void setFatura(double fatura) {
+		this.fatura = fatura;
+	}
+
+
 	public double getLimite() {
 		return limite;
 	}
