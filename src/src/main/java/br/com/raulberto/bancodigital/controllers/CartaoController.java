@@ -1,7 +1,5 @@
 package br.com.raulberto.bancodigital.controllers;
 
-import java.util.ArrayList;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,11 +45,7 @@ public class CartaoController {
 			throw e;
 		}
 	}
-	
-	@GetMapping("/cartoes")
-	public ArrayList<Cartao> getCartoes() throws Exception{
-		return cartaoService.getCartoes();
-	}
+
 	
 	@GetMapping("/cartoes/{id}")
 	public Cartao getCartao(@PathVariable int id) throws Exception{

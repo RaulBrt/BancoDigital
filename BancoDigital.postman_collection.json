@@ -1,0 +1,564 @@
+{
+	"info": {
+		"_postman_id": "e626d17c-5986-4484-9d10-3647eaf420dd",
+		"name": "BancoDigital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27481631"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "CreateCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\": \"505.616.060-13\",\r\n    \"nome\": \"John Doe\",\r\n    \"endereco\": \"Rua dos Bobos, N°0\",\r\n    \"dataDeNascimento\": \"24/11/2025\",\r\n    \"tipo\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clientes",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clientes",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClienteByCPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clientes/505.616.060-13",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clientes",
+								"505.616.060-13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\": \"250.919.400-30\",\r\n    \"nome\": \"Jenny Doe\",\r\n    \"endereco\": \"Baker Street\",\r\n    \"dataDeNascimento\": \"30/02/2025\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clientes/505.616.060-13",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clientes",
+								"505.616.060-13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clientes/250.919.400-30",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clientes",
+								"250.919.400-30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conta",
+			"item": [
+				{
+					"name": "CreateContaPoupanca",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Data-Type",
+								"value": "ContaPoupanca",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"cpfDono\":\"505.616.060-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/contas",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateContaCorrente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Data-Type",
+								"value": "ContaCorrente",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"cpfDono\":\"505.616.060-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/contas",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deposito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Data-Type",
+								"value": "ContaCorrente",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "150",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/contas/1/deposito",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1",
+								"deposito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Saque",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Data-Type",
+								"value": "ContaCorrente",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "20",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/contas/1/saque",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1",
+								"saque"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pix",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\": \"250.919.400-30\",\r\n    \"valor\": 35\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/contas/1/pix",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1",
+								"pix"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transferencia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Data-Type",
+								"value": "ContaCorrente",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tgtId\": 2,\r\n    \"valor\": 70\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/contas/1/transferencia",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1",
+								"transferencia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetContaById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/contas/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Saldo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/contas/1/saldo",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1",
+								"saldo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manutencao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/contas/1/manutencao",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1",
+								"manutencao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rendimento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/contas/1/rendimentos",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"contas",
+								"1",
+								"rendimentos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cartoes",
+			"item": [
+				{
+					"name": "CreateCartaoDebito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Data-Type",
+								"value": "CartaoDebito",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"contaId\": 1,\r\n    \"senha\": 123,\r\n    \"limiteTransacoes\": 1\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cartoes",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cartoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCartaoCredito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Data-Type",
+								"value": "CartaoCredito",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"contaId\": 1,\r\n    \"senha\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cartoes",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cartoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pagamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "150",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cartoes/2/pagamento",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cartoes",
+								"2",
+								"pagamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCartao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/cartoes/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cartoes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ToggleStatus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/cartoes/1/status",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cartoes",
+								"1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetLimite",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "2000",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cartoes/2/limite",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cartoes",
+								"2",
+								"limite"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
